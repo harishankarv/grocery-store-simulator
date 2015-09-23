@@ -1,0 +1,33 @@
+# Windows thumbnail files
+.DS_*
+
+# class files 
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# backups and swap files
+*-bak
+*.bak
+*.swp
+*~
+
+# logs
+*.log
+
+# Maven
+log/
+target/
