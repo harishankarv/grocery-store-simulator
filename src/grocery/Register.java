@@ -52,13 +52,12 @@ public class Register {
 	}
 
 	/**
-	 * Return the size of the queue. People in checkout are not counted as in
-	 * queue.
+	 * Return the size of the queue.
 	 * 
 	 * @return size of queue
 	 */
 	public int getQueueSize() {
-		return this.customerQueue.size() - 1; 
+		return this.customerQueue.size(); 
 	}
 
 	public int getID() {
@@ -78,14 +77,17 @@ public class Register {
 		if (this.isQueueEmpty())
 			return;
 
-		Customer front = customerQueue.peek();
+		Customer frontCustomer = customerQueue.peek();
 		if (this.registerType == RegisterType.TRAINING && x2Time == false) {
 			x2Time = true;
 		} else {
-			front.checkoutOneItem();
+			frontCustomer.checkoutOneItem();
 			x2Time = false;
-			if (front.numberOfItems() == 0) {
+			if (frontCustomer.numberOfItems() == 0) {
 				customerQueue.remove();
+				if(isQueueEmpty()){
+					lastCustomer = null;
+				}
 			}
 		}
 	}

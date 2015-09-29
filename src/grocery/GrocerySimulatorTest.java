@@ -1,16 +1,14 @@
-package test;
+package grocery;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import grocery.Simulator;
-
 public class GrocerySimulatorTest {
 
 	@Test
 	public void test() {
-		String[] inputs = {"1.txt", "2.txt", "3.txt", "4.txt", "5.txt"};
+		String[] inputs = {"./tests/1.txt", "./tests/2.txt", "./tests/3.txt", "./tests/4.txt", "./tests/5.txt"};
 		int[] answers = {7, 13, 6, 9, 11};
 		for (int i =0; i<answers.length; i++){
 			Simulator simulator = new Simulator(inputs[i]);
