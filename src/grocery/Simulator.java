@@ -19,12 +19,13 @@ import java.util.Map;
 public class Simulator {
 
 	Grocery groceryStore;
-	
-	/*Stores the time taken for the simulation*/
+
+	/* Stores the time taken for the simulation */
 	private int time;
 
 	/**
 	 * Returns the time taken by the simulation
+	 * 
 	 * @return time
 	 */
 	public int getTime() {
@@ -40,7 +41,7 @@ public class Simulator {
 		groceryStore = initialize(filename);
 		this.time = simulate(groceryStore);
 	}
-	
+
 	private Grocery initialize(String filename) {
 
 		try {
@@ -49,12 +50,21 @@ public class Simulator {
 
 			line = br.readLine();
 			int numRegisters = Integer.parseInt(line);
+			
+			if(numRegisters <= 0){
+				System.out.println("Cannot simulate without registers\n");
+				System.exit(-1);
+			}
 
 			Grocery groceryStore = new Grocery(numRegisters);
 
 			while ((line = br.readLine()) != null) {
 
 				String[] tokens = line.split(" ");
+				if (tokens.length != 3) {
+					System.out.println("Error in input file\n");
+					System.exit(-1);
+				}
 				int time = Integer.parseInt(tokens[1]);
 				Customer customer = new Customer(tokens[0], time, Integer.parseInt(tokens[2]));
 
@@ -98,7 +108,7 @@ public class Simulator {
 	 * from each customer (depending in the type of Register).
 	 * 
 	 * @param groceryStore
-	 * @return
+	 * @return time
 	 */
 	private int simulate(Grocery groceryStore) {
 		int time = 1;

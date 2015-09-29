@@ -19,7 +19,11 @@ public class Customer implements Comparable<Customer> {
 	private int numberOfItems;
 	private int arrivalTime;
 
-	public Customer(String customerType, int arrivalTime, int numberOfItems) {
+	public Customer(String customerType, int arrivalTime, int numberOfItems) { 
+		if (!(customerType.equals("A") || customerType.equals("B"))) {
+			System.out.println("Invalid Customer Type\n");
+			System.exit(-1);
+		}
 		this.customerType = CustomerType.valueOf(customerType);
 		this.numberOfItems = numberOfItems;
 		this.arrivalTime = arrivalTime;
