@@ -2,18 +2,25 @@ package grocery;
 
 import java.util.List;
 
-enum CustomerType {
-	A, B
-}
-
+/**
+ * This class represents a Customer. It implements the {@link Comparable}
+ * interface. This allow comparisons between customers, which helps to decide
+ * which customer is allowed to choose the {@link Register} first.
+ * 
+ * @author harishankarv
+ */
 public class Customer implements Comparable<Customer> {
+
+	enum CustomerType {
+		A, B
+	}
 
 	CustomerType customerType;
 	private int numberOfItems;
 	private int arrivalTime;
 
-	public Customer(CustomerType customerType, int arrivalTime, int numberOfItems) {
-		this.customerType = customerType;
+	public Customer(String customerType, int arrivalTime, int numberOfItems) {
+		this.customerType = CustomerType.valueOf(customerType);
 		this.numberOfItems = numberOfItems;
 		this.arrivalTime = arrivalTime;
 	}
@@ -25,7 +32,21 @@ public class Customer implements Comparable<Customer> {
 	public void checkoutOneItem() {
 		numberOfItems--;
 	}
+
 	/**
+	 * Allows a customer to choose a {@link Register} given a list, and join the
+	 * queue for the register. The method follows these rules:
+	 * 
+	 * Customer Type A always chooses the register with the shortest line (least
+	 * number of customers in line). If two or more registers have the shortest
+	 * line, Customer Type A will choose the register with the lowest register
+	 * number (e.g. register #1 would be chosen over register #3). Customer Type
+	 * B looks at the last customer in each line, and always chooses to be
+	 * behind the customer with the fewest number of items left to check out,
+	 * regardless of how many other customers are in the line or how many items
+	 * they have. Customer Type B will always choose an empty line before a line
+	 * with any customers in it.
+	 * 
 	 * @param registersList
 	 */
 	public void choose(List<Register> registersList) {
@@ -33,13 +54,6 @@ public class Customer implements Comparable<Customer> {
 		Register winner = registersList.get(0);
 
 		if (this.customerType == CustomerType.A) {
-			/*
-			 * Customer Type A always chooses the register with the shortest
-			 * line (least number of customers in line). If two or more
-			 * registers have the shortest line, Customer Type A will choose the
-			 * register with the lowest register number (e.g. register #1 would
-			 * be chosen over register #3).
-			 */
 			int minLine = winner.getQueueSize();
 			for (Register r : registersList) {
 				int line = r.getQueueSize();
@@ -51,14 +65,6 @@ public class Customer implements Comparable<Customer> {
 				}
 			}
 		} else {
-			/*
-			 * Customer Type B looks at the last customer in each line, and
-			 * always chooses to be behind the customer with the fewest number
-			 * of items left to check out, regardless of how many other
-			 * customers are in the line or how many items they have. Customer
-			 * Type B will always choose an empty line before a line with any
-			 * customers in it.
-			 */
 
 			int min = winner.getLastCustomer().numberOfItems;
 			for (Register r : registersList) {
@@ -81,6 +87,9 @@ public class Customer implements Comparable<Customer> {
 		return this.customerType.toString() + " " + this.arrivalTime + " " + this.numberOfItems;
 	}
 
+	/**
+	 * Compares customers based on the numberOfItems.
+	 */
 	@Override
 	public int compareTo(Customer that) {
 		if (this.numberOfItems < that.numberOfItems)

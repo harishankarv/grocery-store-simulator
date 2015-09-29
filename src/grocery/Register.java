@@ -3,23 +3,45 @@ package grocery;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * This class represents a register. It internally contains a queue of
+ * customers. The queueCustomer method allows to queue a {@link Customer} object
+ * into this registers queue.
+ * 
+ * @author harishankarv
+ *
+ */
 public class Register {
 
+	/**
+	 * This represents the type of the register. It is used by {@link Register}
+	 * to decide how to process customers.
+	 * 
+	 * @author harishankarv
+	 *
+	 */
 	enum RegisterType {
 		TRAINING, NORMAL;
 	}
 
 	RegisterType registerType;
 	private int id;
-	private Queue<Customer> customerQueue = new LinkedList<>(); // customers in
-																// line
-	private Customer lastCustomer; // for helping B decide
-	boolean x2Time = false; // for mimicking 2x time
 
-	public boolean isTraining() {
-		return this.registerType == RegisterType.TRAINING;
-	}
+	/* Customers currently in line */
+	private Queue<Customer> customerQueue = new LinkedList<>();
 
+	/* Reference to the last customer for helping type B customers decide */
+	private Customer lastCustomer;
+
+	/* Used internally for mimicking 2x time for Training Registers */
+	private boolean x2Time = false;
+
+	/**
+	 * Adds a Customer to the internal queue. and updates the lastCustomer.
+	 * 
+	 * @param c
+	 *            the Customer
+	 */
 	public void queueCustomer(Customer c) {
 		lastCustomer = c;
 		customerQueue.add(c);
@@ -29,8 +51,14 @@ public class Register {
 		return lastCustomer;
 	}
 
+	/**
+	 * Return the size of the queue. People in checkout are not counted as in
+	 * queue.
+	 * 
+	 * @return size of queue
+	 */
 	public int getQueueSize() {
-		return this.customerQueue.size() - 1; //current customer doesn't count in queue.
+		return this.customerQueue.size() - 1; 
 	}
 
 	public int getID() {
@@ -41,6 +69,11 @@ public class Register {
 		return this.customerQueue.isEmpty();
 	}
 
+	/**
+	 * Depending on the {@link RegisterType} this register, this method checks
+	 * out one item from the customers queue by calling {@link Customer#checkoutOneItem()}.
+	 * To simulate slower time on training registers, a boolean variable is used.
+	 */
 	public void processOneItem() {
 		if (this.isQueueEmpty())
 			return;
