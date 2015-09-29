@@ -1,4 +1,4 @@
-package grocery;
+						package grocery;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,9 +11,15 @@ import java.util.Map;
 
 public class Simulator {
 	
+	private int time;
+	
+	public int getTime(){
+		return time;
+	}
+	
 	public Simulator(String filename){
 		Grocery groceryStore = initialize(filename);
-		startSimulation(groceryStore); 
+		this.time = simulate(groceryStore); 
 	}
 	
 	private Grocery initialize(String filename) {
@@ -62,7 +68,7 @@ public class Simulator {
 		return null;
 	}
 
-	private void startSimulation(Grocery groceryStore) {
+	private int simulate(Grocery groceryStore) {
 		int time = 1;
 		while (time == 1 || !groceryStore.isEmpty()) {
 			List<Customer> currentArrivals = groceryStore.getCustomers().get(time);
@@ -76,11 +82,6 @@ public class Simulator {
 			time++;
 		}
 
-		System.out.println("Finished at: t=" + time + " minutes");
+		return time;
 	}
-	
-	public static void main(String[] args) {
-		new Simulator(args[0]);
-	}
-
 }

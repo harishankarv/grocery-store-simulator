@@ -6,7 +6,6 @@ enum CustomerType {
 	A, B
 }
 
-
 public class Customer implements Comparable<Customer> {
 
 	CustomerType customerType;
