@@ -1,4 +1,4 @@
-This is my solution to a coding challenge. The following is the descrption of the challenge:
+This is my solution to a coding challenge. The following is the description of the challenge:
 
 ## Quick Read
 
