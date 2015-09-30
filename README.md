@@ -1,3 +1,5 @@
+This is my solution to a coding challenge. The following is the descrption of the challenge:
+
 ## Quick Read
 
 Please clone this repository using [git](http://git-scm.com/) and complete the problem described below in that repository. We prefer that you do not fork this repository; just clone it and commit your work to your local copy of the repository. If you are not familiar with git, you can find several guides online.
@@ -152,6 +154,8 @@ $ java -jar grocery.jar input.txt
 Finished at: t=11 minutes
 ```
 This example illustrates the requirement that customers of type A choose before customers of type B.
+
 ## Usage
 
 To create grocery.jar do `mvn install` from inside the parent directory. You will find `grocery.jar` inside the target directory. Then you can do `java -jar grocery.jar <path-to-input-file>` (<path-to-input-file> being the argument) to run the simulation and get the output.
+
